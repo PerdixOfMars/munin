@@ -95,3 +95,11 @@ TEST_F(a_composite_component, forwards_events_to_its_inner_component)
     composite_->event(value);
     ASSERT_EQ(value, received_value);
 }
+
+TEST_F(a_composite_component, does_not_report_its_internal_subcomponents_as_json)
+{
+    nlohmann::json json = composite_->to_json();
+
+    ASSERT_EQ("composite_component", json["type"]);
+    ASSERT_EQ(json.end(), json.find("subcomponents"));
+}

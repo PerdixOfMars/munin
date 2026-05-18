@@ -164,7 +164,9 @@ nlohmann::json composite_component::do_to_json() const
         { "op": "replace", "path": "/type", "value": "composite_component" }
     ])"_json;
 
-    return content_.to_json().patch(patch);
+    auto json = content_.to_json().patch(patch);
+    json.erase("subcomponents");
+    return json;
 }
 
 }  // namespace munin
