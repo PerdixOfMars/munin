@@ -360,6 +360,7 @@ struct container::impl
     {
         nlohmann::json json = {
             {"type",            "container"                           },
+            {"id",              self_.get_id()                        },
             {"position",        detail::to_json(get_position())       },
             {"size",            detail::to_json(get_size())           },
             {"preferred_size",  detail::to_json(get_preferred_size()) },

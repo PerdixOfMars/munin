@@ -165,6 +165,7 @@ nlohmann::json composite_component::do_to_json() const
     ])"_json;
 
     auto json = content_.to_json().patch(patch);
+    json["id"] = get_id();
     json.erase("subcomponents");
     return json;
 }
