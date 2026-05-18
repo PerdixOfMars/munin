@@ -7,4 +7,5 @@ TEST(a_button, reports_attributes_as_json)
     nlohmann::json json = button.to_json();
 
     ASSERT_EQ("button", json["type"]);
+    ASSERT_EQ(json.end(), json.find("subcomponents"));
 }
