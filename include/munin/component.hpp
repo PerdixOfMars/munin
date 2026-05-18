@@ -118,6 +118,16 @@ public:
     void set_cursor_position(terminalpp::point const &position);
 
     //* =====================================================================
+    /// \brief Sets the Automation ID of this component.
+    //* =====================================================================
+    void set_id(std::string const &id);
+
+    //* =====================================================================
+    /// \brief Retrieves the Automation ID of this component.
+    //* =====================================================================
+    [[nodiscard]] std::string get_id() const;
+
+    //* =====================================================================
     /// \brief Draws the component.
     ///
     /// \param surface the surface on which the component should draw itself.
@@ -309,6 +319,18 @@ protected:
     /// function in order to handle events in a custom manner.
     //* =====================================================================
     virtual void do_event(std::any const &event) = 0;
+
+    //* =====================================================================
+    /// \brief Called by set_id(). Derived classes must override this
+    /// function in order to store the Automation ID in a custom manner.
+    //* =====================================================================
+    virtual void do_set_id(std::string const &id) = 0;
+
+    //* =====================================================================
+    /// \brief Called by get_id(). Derived classes must override this
+    /// function in order to retrieve the Automation ID in a custom manner.
+    //* =====================================================================
+    [[nodiscard]] virtual std::string do_get_id() const = 0;
 
     //* =====================================================================
     /// \brief Called by to_json().  Derived classes must override this

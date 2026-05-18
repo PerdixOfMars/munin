@@ -178,12 +178,29 @@ void basic_component::do_event(std::any const &event)
 }
 
 // ==========================================================================
+// DO_SET_ID
+// ==========================================================================
+void basic_component::do_set_id(std::string const &id)
+{
+    id_ = id;
+}
+
+// ==========================================================================
+// DO_GET_ID
+// ==========================================================================
+std::string basic_component::do_get_id() const
+{
+    return id_;
+}
+
+// ==========================================================================
 // DO_TO_JSON
 // ==========================================================================
 nlohmann::json basic_component::do_to_json() const
 {
     return {
         {"type",            "basic_component"                     },
+        {"id",              get_id()                              },
         {"position",        detail::to_json(get_position())       },
         {"size",            detail::to_json(get_size())           },
         {"preferred_size",  detail::to_json(get_preferred_size()) },

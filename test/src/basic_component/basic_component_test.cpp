@@ -49,3 +49,14 @@ TEST(a_basic_component, reports_attributes_as_json)
     ASSERT_EQ(0, json["cursor_position"]["x"]);
     ASSERT_EQ(0, json["cursor_position"]["y"]);
 }
+
+TEST(a_basic_component, reports_its_automation_id_as_json)
+{
+    fake_basic_component basic;
+    munin::component &component = basic;
+
+    component.set_id("ok_button");
+
+    nlohmann::json json = component.to_json();
+    ASSERT_EQ("ok_button", json["id"]);
+}
