@@ -340,4 +340,27 @@ protected:
     [[nodiscard]] virtual nlohmann::json do_to_json() const = 0;
 };
 
+//* =========================================================================
+/// \brief A helper function to set the Automation ID of a component in a
+/// more fluent manner.
+/// \par
+/// This is used like so:
+/// \code
+/// auto component = std::make_shared<some_component>() |
+/// munin::with_id("ok_button");
+/// \endcode
+//* =========================================================================
+struct MUNIN_EXPORT with_id
+{
+    template <typename ComponentType>
+    friend std::shared_ptr<ComponentType> operator|(
+        std::shared_ptr<ComponentType> const &component, with_id const &with_id)
+    {
+        component->set_id(with_id.id_);
+        return component;
+    }
+
+    std::string id_;
+};
+
 }  // namespace munin

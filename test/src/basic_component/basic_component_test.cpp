@@ -60,3 +60,12 @@ TEST(a_basic_component, reports_its_automation_id_as_json)
     nlohmann::json json = component.to_json();
     ASSERT_EQ("ok_button", json["id"]);
 }
+
+TEST(a_basic_component, can_have_its_id_set_with_helper)
+{
+    auto basic_component = std::make_shared<fake_basic_component>();
+    auto component = basic_component | munin::with_id("ok_button");
+
+    ASSERT_EQ(basic_component->get_id(), "ok_button");
+    ASSERT_EQ(basic_component, component);
+}
