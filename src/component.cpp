@@ -3,6 +3,7 @@
 #include "munin/render_surface.hpp"
 
 #include <cassert>
+#include <utility>
 
 namespace munin {
 
@@ -110,6 +111,22 @@ terminalpp::point component::get_cursor_position() const
 void component::set_cursor_position(terminalpp::point const &position)
 {
     do_set_cursor_position(position);
+}
+
+// ==========================================================================
+// SET_ID
+// ==========================================================================
+void component::set_id(std::string const &id)
+{
+    do_set_id(id);
+}
+
+// ==========================================================================
+// GET_ID
+// ==========================================================================
+std::string component::get_id() const
+{
+    return do_get_id();
 }
 
 // ==========================================================================

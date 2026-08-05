@@ -120,6 +120,18 @@ public:
     MOCK_METHOD1(do_event, void(std::any const &));
 
     //* =====================================================================
+    /// \brief Called by set_id().  Derived classes must override this
+    /// function in order to store the Automation ID in a custom manner.
+    //* =====================================================================
+    MOCK_METHOD1(do_set_id, void(std::string const &));
+
+    //* =====================================================================
+    /// \brief Called by get_id().  Derived classes must override this
+    /// function in order to retrieve the Automation ID in a custom manner.
+    //* =====================================================================
+    MOCK_CONST_METHOD0(do_get_id, std::string());
+
+    //* =====================================================================
     /// \brief Called by to_json().  Derived classes must override this
     /// function in order to add additional data about their implementation
     /// in a custom manner.

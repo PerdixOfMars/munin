@@ -302,6 +302,7 @@ target_sources(munin_tester
         test/src/container/container_redraw_test.cpp
         test/src/container/container_subcomponent_focus_test.cpp
         test/src/container/container_layout_test.cpp
+        test/src/edit/edit_json_test.cpp
         test/src/edit/edit_test.cpp
         test/src/edit/edit_mouse_test.cpp
         test/src/edit/edit_with_content_test.cpp
@@ -315,11 +316,13 @@ target_sources(munin_tester
         test/src/framed_component/framed_component_mouse_test.cpp
         test/src/grid_layout/grid_layout_test.cpp
         test/src/horizontal_strip_layout/horizontal_strip_layout_test.cpp
+        test/src/horizontal_scrollbar/horizontal_scrollbar_json_test.cpp
         test/src/horizontal_scrollbar/horizontal_scrollbar_test.cpp
         test/src/image/image_json_test.cpp
         test/src/image/image_test.cpp
         test/src/image/image_redraw_test.cpp
         test/src/image/new_image_test.cpp
+        test/src/list/list_json_test.cpp
         test/src/list/list_test.cpp
         test/src/null_layout/null_layout_test.cpp
         test/src/render_surface/render_surface_capabilities_test.cpp
@@ -328,8 +331,10 @@ target_sources(munin_tester
         test/src/scroll_pane/scroll_pane_test.cpp
         test/src/solid_frame/solid_frame_json_test.cpp
         test/src/solid_frame/solid_frame_test.cpp
+        test/src/status_bar/status_bar_json_test.cpp
         test/src/status_bar/status_bar_test.cpp
         test/src/text_area/new_text_area_test.cpp
+        test/src/text_area/text_area_json_test.cpp
         test/src/text_area/text_area_test.cpp
         test/src/text_area/text_area_with_text_inserted_test.cpp
         test/src/text_area/text_area_typing_test.cpp
@@ -338,12 +343,14 @@ target_sources(munin_tester
         test/src/titled_frame/titled_frame_test.cpp
         test/src/toggle_button/toggle_button_test.cpp
         test/src/toggle_button/toggle_button_json_test.cpp
+        test/src/vertical_scrollbar/vertical_scrollbar_json_test.cpp
         test/src/vertical_scrollbar/vertical_scrollbar_test.cpp
         test/src/vertical_strip_layout/vertical_strip_layout_test.cpp
         test/src/viewport/viewport_test.hpp
         test/src/viewport/viewport_test.cpp
         test/src/viewport/viewport_resize_strategy_test.cpp
         test/src/viewport/viewport_cursor_test.cpp
+        test/src/viewport/viewport_json_test.cpp
         test/src/viewport/viewport_keypress_test.cpp
         test/src/viewport/viewport_redraw_test.cpp
         test/src/viewport/viewport_size_test.cpp

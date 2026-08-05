@@ -88,7 +88,8 @@ struct horizontal_scrollbar::impl
         else
         {
             // The viewport contract publishes the maximum anchor origin.
-            // That means the terminal endpoints are 0 and viewport_total_width_.
+            // That means the terminal endpoints are 0 and
+            // viewport_total_width_.
             if (viewport_basis_x_position_ == 0)
             {
                 slider_position_ = 0;
@@ -104,8 +105,8 @@ struct horizontal_scrollbar::impl
 
                 slider_position_ =
                     1
-                  + (((viewport_basis_x_position_ - 1) * slider_positions)
-                     / viewport_basis_positions);
+                    + (((viewport_basis_x_position_ - 1) * slider_positions)
+                       / viewport_basis_positions);
             }
         }
     }
@@ -295,6 +296,18 @@ void horizontal_scrollbar::do_draw(
 void horizontal_scrollbar::do_event(std::any const &event)
 {
     pimpl_->handle_event(event);
+}
+
+// ==========================================================================
+// DO_TO_JSON
+// ==========================================================================
+nlohmann::json horizontal_scrollbar::do_to_json() const
+{
+    nlohmann::json patch = R"([
+        { "op": "replace", "path": "/type", "value": "horizontal_scrollbar" }
+    ])"_json;
+
+    return basic_component::do_to_json().patch(patch);
 }
 
 // ==========================================================================

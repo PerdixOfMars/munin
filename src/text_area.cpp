@@ -379,7 +379,7 @@ private:
             {width_,
              modifiers == terminalpp::vk_modifier::ctrl
                  ? static_cast<terminalpp::coordinate_type>(
-                     laid_out_text_.size() - 1)
+                       laid_out_text_.size() - 1)
                  : cursor_position_.y_});
     }
 
@@ -633,6 +633,18 @@ void text_area::do_draw(
 void text_area::do_event(std::any const &ev)
 {
     pimpl_->event(ev);
+}
+
+// ==========================================================================
+// DO_TO_JSON
+// ==========================================================================
+nlohmann::json text_area::do_to_json() const
+{
+    auto json = basic_component::do_to_json();
+    json["type"] = "text_area";
+    json["text"] = terminalpp::to_string(get_text());
+    json["caret_position"] = get_caret_position();
+    return json;
 }
 
 // ==========================================================================

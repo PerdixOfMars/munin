@@ -2,6 +2,8 @@
 
 #include "munin/component.hpp"
 
+#include <string>
+
 namespace munin {
 
 //* =========================================================================
@@ -120,6 +122,18 @@ protected:
     void do_event(std::any const &event) override;
 
     //* =====================================================================
+    /// \brief Called by set_id().  Derived classes may override this
+    /// function in order to store the Automation ID in a custom manner.
+    //* =====================================================================
+    void do_set_id(std::string const &id) override;
+
+    //* =====================================================================
+    /// \brief Called by get_id().  Derived classes may override this
+    /// function in order to retrieve the Automation ID in a custom manner.
+    //* =====================================================================
+    [[nodiscard]] std::string do_get_id() const override;
+
+    //* =====================================================================
     /// \brief Called by to_json().  Derived classes must override this
     /// function in order to add additional data about their implementation
     /// in a custom manner.
@@ -129,6 +143,7 @@ protected:
 private:
     terminalpp::rectangle bounds_;
     bool has_focus_;
+    std::string id_;
 };
 
 }  // namespace munin

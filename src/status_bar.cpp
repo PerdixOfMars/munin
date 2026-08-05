@@ -4,6 +4,7 @@
 #include <munin/render_surface.hpp>
 #include <terminalpp/algorithm/for_each_in_region.hpp>
 #include <terminalpp/element.hpp>
+#include <terminalpp/string.hpp>
 
 #include <memory>
 
@@ -70,9 +71,9 @@ terminalpp::extent status_bar::do_get_preferred_size() const
     return pimpl_->message_.empty()
              ? terminalpp::extent{1, 1}
              : terminalpp::extent{
-                 static_cast<terminalpp::coordinate_type>(
-                     pimpl_->message_.size()),
-                 1};
+                   static_cast<terminalpp::coordinate_type>(
+                       pimpl_->message_.size()),
+                   1};
 }
 
 // ==========================================================================
@@ -123,6 +124,21 @@ void status_bar::do_draw(
         pimpl_->animator_.redraw_component_at(
             shared_from_this(), {{}, get_size()}, next_frame_time);
     }
+}
+
+// ==========================================================================
+// DO_TO_JSON
+// ==========================================================================
+nlohmann::json status_bar::do_to_json() const
+{
+    nlohmann::json patch = R"([
+        { "op": "replace", "path": "/type", "value": "status_bar" }
+    ])"_json;
+
+    auto json = basic_component::do_to_json().patch(patch);
+    json["name"] = terminalpp::to_string(pimpl_->message_);
+
+    return json;
 }
 
 // ==========================================================================

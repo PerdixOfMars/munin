@@ -9,6 +9,7 @@
 #include <boost/scope_exit.hpp>
 #include <terminalpp/mouse.hpp>
 #include <terminalpp/rectangle.hpp>
+#include <terminalpp/virtual_key.hpp>
 
 #include <algorithm>
 #include <memory>
@@ -57,6 +58,11 @@ auto find_component_at_point(
     return std::ranges::find_if(rng, has_location_at_point);
 }
 
+auto virtual_key_from(std::any const &event) -> terminalpp::virtual_key const *
+{
+    return std::any_cast<terminalpp::virtual_key>(&event);
+}
+
 }  // namespace
 
 // ==========================================================================
@@ -70,6 +76,8 @@ struct container::impl
     explicit impl(container &self) : self_(self)
     {
     }
+
+    std::string id_;
 
     // ======================================================================
     // SET_LAYOUT
@@ -358,6 +366,7 @@ struct container::impl
     {
         nlohmann::json json = {
             {"type",            "container"                           },
+            {"id",              self_.get_id()                        },
             {"position",        detail::to_json(get_position())       },
             {"size",            detail::to_json(get_size())           },
             {"preferred_size",  detail::to_json(get_preferred_size()) },
@@ -592,6 +601,20 @@ private:
     // ======================================================================
     void handle_common_event(std::any const &event)
     {
+        if (auto const *key = virtual_key_from(event);
+            key != nullptr && key->key == terminalpp::vk::ht)
+        {
+            focus_next();
+            return;
+        }
+
+        if (auto const *key = virtual_key_from(event);
+            key != nullptr && key->key == terminalpp::vk::bt)
+        {
+            focus_previous();
+            return;
+        }
+
         if (auto comp = find_first_focussed_component(components_);
             comp != components_.end())
         {
@@ -781,6 +804,22 @@ void container::do_draw(
 void container::do_event(std::any const &event)
 {
     pimpl_->event(event);
+}
+
+// ==========================================================================
+// DO_SET_ID
+// ==========================================================================
+void container::do_set_id(std::string const &id)
+{
+    pimpl_->id_ = id;
+}
+
+// ==========================================================================
+// DO_GET_ID
+// ==========================================================================
+std::string container::do_get_id() const
+{
+    return pimpl_->id_;
 }
 
 // ==========================================================================

@@ -118,6 +118,16 @@ public:
     void set_cursor_position(terminalpp::point const &position);
 
     //* =====================================================================
+    /// \brief Sets the Automation ID of this component.
+    //* =====================================================================
+    void set_id(std::string const &id);
+
+    //* =====================================================================
+    /// \brief Retrieves the Automation ID of this component.
+    //* =====================================================================
+    [[nodiscard]] std::string get_id() const;
+
+    //* =====================================================================
     /// \brief Draws the component.
     ///
     /// \param surface the surface on which the component should draw itself.
@@ -311,11 +321,46 @@ protected:
     virtual void do_event(std::any const &event) = 0;
 
     //* =====================================================================
+    /// \brief Called by set_id(). Derived classes must override this
+    /// function in order to store the Automation ID in a custom manner.
+    //* =====================================================================
+    virtual void do_set_id(std::string const &id) = 0;
+
+    //* =====================================================================
+    /// \brief Called by get_id(). Derived classes must override this
+    /// function in order to retrieve the Automation ID in a custom manner.
+    //* =====================================================================
+    [[nodiscard]] virtual std::string do_get_id() const = 0;
+
+    //* =====================================================================
     /// \brief Called by to_json().  Derived classes must override this
     /// function in order to add additional data about their implementation
     /// in a custom manner.
     //* =====================================================================
     [[nodiscard]] virtual nlohmann::json do_to_json() const = 0;
+};
+
+//* =========================================================================
+/// \brief A helper function to set the Automation ID of a component in a
+/// more fluent manner.
+/// \par
+/// This is used like so:
+/// \code
+/// auto component = std::make_shared<some_component>() |
+/// munin::with_id("ok_button");
+/// \endcode
+//* =========================================================================
+struct MUNIN_EXPORT with_id
+{
+    template <typename ComponentType>
+    friend std::shared_ptr<ComponentType> operator|(
+        std::shared_ptr<ComponentType> const &component, with_id const &with_id)
+    {
+        component->set_id(with_id.id_);
+        return component;
+    }
+
+    std::string id_;
 };
 
 }  // namespace munin

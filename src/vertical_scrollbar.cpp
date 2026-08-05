@@ -134,7 +134,8 @@ struct vertical_scrollbar::impl
         else
         {
             // The viewport contract publishes the maximum anchor origin.
-            // That means the terminal endpoints are 0 and viewport_total_height_.
+            // That means the terminal endpoints are 0 and
+            // viewport_total_height_.
             if (viewport_basis_y_position_ == 0)
             {
                 slider_position_ = 0;
@@ -151,8 +152,8 @@ struct vertical_scrollbar::impl
 
                 slider_position_ =
                     1
-                  + (((viewport_basis_y_position_ - 1) * slider_positions)
-                     / viewport_basis_positions);
+                    + (((viewport_basis_y_position_ - 1) * slider_positions)
+                       / viewport_basis_positions);
             }
         }
     }
@@ -295,6 +296,18 @@ void vertical_scrollbar::do_draw(
 void vertical_scrollbar::do_event(std::any const &event)
 {
     pimpl_->handle_event(event);
+}
+
+// ==========================================================================
+// DO_TO_JSON
+// ==========================================================================
+nlohmann::json vertical_scrollbar::do_to_json() const
+{
+    nlohmann::json patch = R"([
+        { "op": "replace", "path": "/type", "value": "vertical_scrollbar" }
+    ])"_json;
+
+    return basic_component::do_to_json().patch(patch);
 }
 
 // ==========================================================================

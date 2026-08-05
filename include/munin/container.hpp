@@ -4,6 +4,8 @@
 #include "munin/export.hpp"
 #include "munin/layout.hpp"
 
+#include <string>
+
 namespace munin {
 
 class layout;
@@ -119,6 +121,18 @@ private:
     /// function in order to handle events in a custom manner.
     //* =====================================================================
     void do_event(std::any const &event) override;
+
+    //* =====================================================================
+    /// \brief Called by set_id().  Derived classes must override this
+    /// function in order to store the Automation ID in a custom manner.
+    //* =====================================================================
+    void do_set_id(std::string const &id) override;
+
+    //* =====================================================================
+    /// \brief Called by get_id().  Derived classes must override this
+    /// function in order to retrieve the Automation ID in a custom manner.
+    //* =====================================================================
+    [[nodiscard]] std::string do_get_id() const override;
 
     //* =====================================================================
     /// \brief Called by get_cursor_state().  Derived classes must override

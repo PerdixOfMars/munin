@@ -422,6 +422,18 @@ void edit::do_event(std::any const &ev)
 }
 
 // ==========================================================================
+// DO_TO_JSON
+// ==========================================================================
+nlohmann::json edit::do_to_json() const
+{
+    auto json = basic_component::do_to_json();
+    json["type"] = "edit";
+    json["text"] = terminalpp::to_string(get_text());
+    json["caret_position"] = get_caret_position();
+    return json;
+}
+
+// ==========================================================================
 // MAKE_EDIT
 // ==========================================================================
 std::shared_ptr<edit> make_edit()

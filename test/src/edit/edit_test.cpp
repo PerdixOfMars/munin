@@ -259,27 +259,27 @@ INSTANTIATE_TEST_SUITE_P(
     receiving_keypresses_test,
     receiving_keypresses,
     ValuesIn({
-  // Keypresses that represent printable characters get converted
-  // to text and the cursor moves onward.
+        // Keypresses that represent printable characters get converted
+        // to text and the cursor moves onward.
         keypress_data{terminalpp::vk::uppercase_t,  'T', {1, 0}, 1},
         keypress_data{terminalpp::vk::lowercase_t,  't', {1, 0}, 1},
         keypress_data{terminalpp::vk::uppercase_z,  'Z', {1, 0}, 1},
         keypress_data{terminalpp::vk::space,        ' ', {1, 0}, 1},
         keypress_data{terminalpp::vk::dollar,       '$', {1, 0}, 1},
 
- // Newline and control characters do not get converted (so the output
-  // remains a space) and the cursor stays in the same location.
+        // Newline and control characters do not get converted (so the output
+        // remains a space) and the cursor stays in the same location.
         keypress_data{terminalpp::vk::lf,           ' ', {0, 0}, 0},
         keypress_data{terminalpp::vk::cr,           ' ', {0, 0}, 0},
         keypress_data{terminalpp::vk::nul,          ' ', {0, 0}, 0},
         keypress_data{terminalpp::vk::stx,          ' ', {0, 0}, 0},
 
- // Specially, backspace or DEL do nothing on an empty edit
+        // Specially, backspace or DEL do nothing on an empty edit
         keypress_data{terminalpp::vk::bs,           ' ', {0, 0}, 0},
         keypress_data{terminalpp::vk::del,          ' ', {0, 0}, 0},
 
- // Lastly, for an edit with no characters, the cursor can't be
-  // moved with either cursor or other movement keys.
+        // Lastly, for an edit with no characters, the cursor can't be
+        // moved with either cursor or other movement keys.
         keypress_data{terminalpp::vk::cursor_up,    ' ', {0, 0}, 0},
         keypress_data{terminalpp::vk::cursor_down,  ' ', {0, 0}, 0},
         keypress_data{terminalpp::vk::cursor_left,  ' ', {0, 0}, 0},
